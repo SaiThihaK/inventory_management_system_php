@@ -5,8 +5,38 @@ session_start();
 if (!isset($_SESSION["user_type"])) {
     header("location:login.php");
 }
+
+
+
 $query = "select * from user";
 $response = mysqli_query($connectdb, $query);
+$total_data = mysqli_num_rows($response); //the numbers of data of the table in the database
+//the number of users we want to display on the table
+
+if (isset($_GET["display_user"])) {
+    $display_user = $_GET["display_user"];
+} else {
+    $display_user = 10;
+}
+
+
+
+
+$total_pages = ceil($total_data / $display_user);
+
+
+
+
+if (isset($_GET["page"])) {
+    $page = $_GET["page"] - 1;
+    $query = "select * from user LIMIT $page,$display_user";
+    $response = mysqli_query($connectdb, $query);
+} else {
+    $page = 0;
+    $query = "select * from user LIMIT $page,$display_user";
+    $response = mysqli_query($connectdb, $query);
+}
+
 
 ?>
 
@@ -20,11 +50,12 @@ $response = mysqli_query($connectdb, $query);
         <div class="w-100 mt-3">
             <div class=" w-100 d-flex justify-content-end align-items-center">
                 <a href="create_user.php">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Add User
+                    <button type="button" class="btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Add
                     </button>
                 </a>
             </div>
+            <?php @include_once "./view/select.php" ?>
             <!-- Table -->
             <div class="mt-3">
                 <table class="table">
@@ -80,11 +111,7 @@ $response = mysqli_query($connectdb, $query);
 
         </div>
     </div>
-
-
-    <!-- Create User Modal -->
-    <?php @include_once "./create_user_modal.php" ?>
+    <?php @include_once "./view/pagination.php" ?>
 </body>
-
 
 </html>

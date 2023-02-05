@@ -11,7 +11,7 @@
                     if ($_SESSION['user_type'] == 'master') {
                     ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="user_table.php">User</a>
+                            <a class="nav-link active" aria-current="page" href="user.php">User</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Category</a>

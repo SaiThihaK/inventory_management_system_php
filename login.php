@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
                             </div>
 
                             <p class="text-danger"><?php echo $message ?? null ?></p>
-                            <button type="sumit" class="btn btn-primary" name="submit" value="submit">submit</button>
+                            <button type="sumit" class="btn btn-primary form-control" name="submit" value="submit">submit</button>
 
                             <hr class="my-4">
 
